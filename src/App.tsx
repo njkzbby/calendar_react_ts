@@ -1,25 +1,25 @@
-import React from "react";
+import React from 'react';
 
-import { Calendar } from "./components";
+import { Calendar } from './components';
 
-import "./static/css/global.css";
-import { CalendarContextProvider } from "./components/Calendar/hooks/useCalendar";
+import './static/css/global.css';
+import { CalendarContextProvider } from './components/Calendar/hooks/useCalendar';
 
 export const App: React.FC = () => {
-  const [selectedDate, setSelectedDay] = React.useState(new Date());
+    const [selectedDate, setSelectedDay] = React.useState(new Date());
 
-  return (
-    <CalendarContextProvider
-      options={{ locale: "default", selectedDate, firstWeekDayNumber: 2 }}
-    >
-      <div className="app__container">
-        <Calendar
-          selectedDate={selectedDate}
-          selectDate={(date: Date) => setSelectedDay(date)}
-        />
-      </div>
-    </CalendarContextProvider>
-  );
+    return (
+        <CalendarContextProvider
+            options={{ locale: 'default', selectedDate, firstWeekDayNumber: 2 }}
+        >
+            <div className='app__container'>
+                <Calendar
+                    selectedDate={selectedDate}
+                    selectDate={(date: Date) => setSelectedDay(date)}
+                />
+            </div>
+        </CalendarContextProvider>
+    );
 };
 
 // TODO

@@ -11,25 +11,24 @@ interface ModalProps {
 }
 
 interface CalendarEvent {
+    [key: string]: string | any; // todo: заменить any на date тип
     name: string,
     description: string,
     date: any,
     participants: string,
 }
+
 export const Modal: FC<ModalProps> = ({ active, setActive, date }) => {
     const handleFormSubmit = (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
 
-        const targets = e.currentTarget.elements as HTMLFormControlsCollection; // todo: подумать
+        const targets = e.currentTarget.querySelectorAll('input[type="text"]') as NodeListOf<HTMLInputElement>;
 
-        // @ts-ignore
-        const newEvent = Array.from<HTMLFormControl>(targets)
-            // @ts-ignore
+        const newEvent = Array.from<HTMLInputElement>(targets)
             .filter(element => element.type === 'text')
             .reduce((obj: CalendarEvent, element) => {
-                // @ts-ignore
-                obj[element.name] = element.value
-                return obj
+                obj[element.name] = element.value;
+                return obj;
             }, {} as CalendarEvent);
 
         const prevEvents = JSON.parse(localStorage.getItem('events') || '[]');

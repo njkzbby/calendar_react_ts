@@ -4,8 +4,6 @@ import { useCalendar } from "./hooks/useCalendar";
 import "./Calendar.css";
 import { CalendarItem } from "./CalendarItem";
 
-console.log(window.localStorage);
-
 export const Calendar: React.FC<{ selectDate: any; selectedDate: any }> = ({
   selectDate,
   selectedDate,
@@ -52,7 +50,8 @@ export const Calendar: React.FC<{ selectDate: any; selectedDate: any }> = ({
           </div>
           <div className="calendar__body">
             <div className="calendar__days">
-              {state.calendarDays.map((day, dayIndex) => (
+              {/*// todo: типизировать day*/}
+              {state.calendarDays.map((day: any, dayIndex: number) => (
                 <CalendarItem
                   selectDate={selectDate}
                   day={day}

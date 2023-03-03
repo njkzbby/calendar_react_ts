@@ -1,4 +1,4 @@
-import React, { ReactNode, useContext } from 'react';
+import React, { FC, PropsWithChildren, ReactNode, useContext } from 'react';
 import { createContext } from 'react';
 
 import {
@@ -22,11 +22,7 @@ const getYearsInterval = (year: number) => {
     return [...Array(10)].map((_, index) => startYear + index);
 };
 
-const useCalendarStore = ({
-                              locale = 'default',
-                              selectedDate: date,
-                              firstWeekDayNumber = 2
-                          }: UseCalendarParams) => {
+const useCalendarStore = ({ locale = 'default', selectedDate: date, firstWeekDayNumber = 2 }: UseCalendarParams) => {
     const [selectedDay, setSelectedDay] = React.useState(createDate({ date }));
     const [selectedMonth, setSelectedMonth] = React.useState(
         createMonth({
@@ -154,7 +150,6 @@ const useCalendarStore = ({
         },
         functions: {
             onClickArrow,
-
             setSelectedDay,
             setSelectedMonthByIndex,
             setSelectedYear,
@@ -162,15 +157,11 @@ const useCalendarStore = ({
         }
     };
 };
-type useCalendarReturn = ReturnType<typeof useCalendarStore>;
-const CalendarContext = createContext<useCalendarReturn | null>(null);
-export const CalendarContextProvider = ({
-                                            children,
-                                            options
-                                        }: {
-    children: ReactNode;
-    options: any;
-}) => {
+type CalendarReturn = ReturnType<typeof useCalendarStore>;
+type CalendarContextType = CalendarReturn | null
+type CalendarContextProps = PropsWithChildren<{ options: UseCalendarParams }>
+const CalendarContext = createContext<CalendarContextType>(null);
+export const CalendarContextProvider: FC<CalendarContextProps> = ({ children, options }) => {
     const store = useCalendarStore(options);
 
     return (
@@ -179,8 +170,7 @@ export const CalendarContextProvider = ({
         </CalendarContext.Provider>
     );
 };
+type Selector<T> = (state: T) => any;
+const defaultSelector: Selector<CalendarContextType> = (v) => v;
 
-export const useCalendar = (
-    selector = (v: useCalendarReturn) => v
-    //@ts-ignore
-) => selector(useContext(CalendarContext));
+export const useCalendar = (selector = defaultSelector) => selector(useContext<CalendarContextType>(CalendarContext));
