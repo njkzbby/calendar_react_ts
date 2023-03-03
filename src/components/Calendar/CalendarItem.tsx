@@ -21,7 +21,6 @@ export const CalendarItem = ({
   const isSelectedDay = checkDateIsEqual(day.date, state.selectedDay.date);
   const isAdditionalDay = day.monthIndex !== state.selectedMonth.monthIndex;
   const [modalActive, setModalActive] = useState(false);
-  console.log(day);
   return (
     <div
       aria-hidden

@@ -12,7 +12,6 @@ export const Calendar: React.FC<{ selectDate: any; selectedDate: any }> = ({
 }) => {
   const { functions, state } = useCalendar();
 
-  console.log(state.selectedMonth);
   return (
     <>
       <div className="header">
