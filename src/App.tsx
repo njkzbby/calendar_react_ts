@@ -1,26 +1,30 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
 
-function App() {
+import { Calendar } from "./components";
+import { formatDate } from "./utils/helpers/date";
+
+import "./static/css/global.css";
+import { CalendarContextProvider } from "./components/Calendar/hooks/useCalendar";
+
+export const App: React.FC = () => {
+  const [selectedDate, setSelectedDay] = React.useState(new Date());
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <CalendarContextProvider
+      options={{ locale: "default", selectedDate, firstWeekDayNumber: 2 }}
+    >
+      <div className="app__container">
+        {/* <div className="date__container">
+          {formatDate(selectedDate, "DDD DD MMM YYYY")}
+        </div> */}
+
+        <Calendar
+          selectedDate={selectedDate}
+          selectDate={(date: Date) => setSelectedDay(date)}
+        />
+      </div>
+    </CalendarContextProvider>
   );
-}
+};
 
 export default App;
