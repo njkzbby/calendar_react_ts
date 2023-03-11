@@ -1,55 +1,55 @@
 .modal {
-  width: 290.32px;
-  height: 302px;
-  position: fixed;
-  background-color: rgba(0, 0, 0, 0.3);
-  display: flex;
-  padding: 1px;
-  right: 0;
-  left: 0;
-  align-items: center;
-  justify-content: center;
-  transform: scale(0);
-  z-index: 10;
+    width: 290.32px;
+    height: 302px;
+    position: fixed;
+    background-color: rgba(0, 0, 0, 0.3);
+    display: flex;
+    padding: 1px;
+    right: 0;
+    left: 0;
+    align-items: center;
+    justify-content: center;
+    transform: scale(0);
+    z-index: 10;
 }
 .modal.active {
-  transform: scale(1);
-  position: absolute;
+    transform: scale(1);
+    position: absolute;
 }
 .modal-title {
-  height: 28px;
+    height: 28px;
 }
 .modal-body {
-  display: flex;
-  flex-wrap: wrap;
-  flex-direction: column;
-  align-content: center;
-  align-items: center;
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    align-content: center;
+    align-items: center;
 }
 .modal-input {
-  width: 266.32px;
-  height: 28px;
-  margin-bottom: 8px;
+    width: 266.32px;
+    height: 28px;
+    margin-bottom: 8px;
 }
 .inputs {
-  flex: 270px;
-  display: flex;
-  flex-wrap: wrap;
-  flex-direction: column;
-  align-content: center;
-  justify-content: space-between;
-  align-items: center;
+    flex: 270px;
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    align-content: center;
+    justify-content: space-between;
+    align-items: center;
 }
 .important-inputs {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  align-items: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
 }
 
 .modal__content {
-  width: 290.32px;
-  height: 302px;
-  position: absolute;
-  background: #ffffff;
+    width: 290.32px;
+    height: 302px;
+    position: absolute;
+    background: #ffffff;
 }

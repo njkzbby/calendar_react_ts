@@ -1,21 +1,21 @@
 import React, { FC, FormEvent } from 'react';
 import { formatDate } from '../../utils/helpers/date';
+import { useForm } from 'react-hook-form';
 
 import './Modal.css';
 
 interface ModalProps {
-    locale?: string;
     active: boolean;
     setActive: (status: boolean) => void;
     date: any;
 }
 
 interface CalendarEvent {
-    [key: string]: string | any; // todo: заменить any на date тип
-    name: string,
-    description: string,
-    date: any,
-    participants: string,
+    [key: string]: string | Date; // todo: заменить any на date тип +
+    name: string;
+    description: string;
+    date: any;
+    participants: string;
 }
 
 export const Modal: FC<ModalProps> = ({ active, setActive, date }) => {
@@ -25,7 +25,7 @@ export const Modal: FC<ModalProps> = ({ active, setActive, date }) => {
         const targets = e.currentTarget.querySelectorAll('input[type="text"]') as NodeListOf<HTMLInputElement>;
 
         const newEvent = Array.from<HTMLInputElement>(targets)
-            .filter(element => element.type === 'text')
+            .filter((element) => element.type === 'text')
             .reduce((obj: CalendarEvent, element) => {
                 obj[element.name] = element.value;
                 return obj;
@@ -37,57 +37,37 @@ export const Modal: FC<ModalProps> = ({ active, setActive, date }) => {
 
     return (
         <>
-            <div
-                className={active ? 'modal active' : 'modal'}
-                onClick={() => setActive(false)}
-            >
-                <div className='modal__content' onClick={(e) => e.stopPropagation()}>
-                    <div className='modal-header'>
-                        <div className='modal-title'>
-                            <button onClick={() => setActive(false)} className='button'>
+            <div className={active ? 'modal active' : 'modal'} onClick={() => setActive(false)}>
+                <div className="modal__content" onClick={(e) => e.stopPropagation()}>
+                    <div className="modal-header">
+                        <div className="modal-title">
+                            <button onClick={() => setActive(false)} className="button">
                                 Close
                             </button>
                         </div>
                     </div>
-                    <div className='modal-body'>
-                        <form onSubmit={handleFormSubmit} className='inputs'>
-                            <div className='important-inputs'>
-                                <input
-                                    name='name'
-                                    className='modal-input'
-                                    placeholder='Название события'
-                                    type='text'
-                                    required
-                                />
+                    <div className="modal-body">
+                        <form onSubmit={handleFormSubmit} className="inputs">
+                            <div className="important-inputs">
+                                <input name="name" className="modal-input" placeholder="Название события" type="text" required />
                                 <input
                                     readOnly
                                     value={formatDate(date.date, 'DDD DD MMM YYYY')}
-                                    name='date'
-                                    className='modal-input'
-                                    placeholder='Дата события'
-                                    type='text'
+                                    name="date"
+                                    className="modal-input"
+                                    placeholder="Дата события"
+                                    type="text"
                                     required
                                 />
-                                <input
-                                    name='participants'
-                                    className='modal-input'
-                                    placeholder='Участники'
-                                    type='text'
-                                    required
-                                />
+                                <input name="participants" className="modal-input" placeholder="Участники" type="text" required />
                             </div>
-                            <div className='descripthion-input'>
-                                <input
-                                    name='description'
-                                    className='modal-input'
-                                    placeholder='Описание'
-                                    type='text'
-                                />
+                            <div className="descripthion-input">
+                                <input name="description" className="modal-input" placeholder="Описание" type="text" />
                             </div>
-                            <input type='submit'></input>
+                            <input type="submit"></input>
                         </form>
                     </div>
-                    <div className='modal-footer'></div>
+                    <div className="modal-footer"></div>
                 </div>
             </div>
         </>

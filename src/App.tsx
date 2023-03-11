@@ -9,21 +9,16 @@ export const App: React.FC = () => {
     const [selectedDate, setSelectedDay] = React.useState(new Date());
 
     return (
-        <CalendarContextProvider
-            options={{ locale: 'default', selectedDate, firstWeekDayNumber: 2 }}
-        >
-            <div className='app__container'>
-                <Calendar
-                    selectedDate={selectedDate}
-                    selectDate={(date: Date) => setSelectedDay(date)}
-                />
+        <CalendarContextProvider options={{ selectedDate, firstWeekDayNumber: 2 }}>
+            <div className="app__container">
+                <Calendar selectedDate={selectedDate} selectDate={(date: Date) => setSelectedDay(date)} />
             </div>
         </CalendarContextProvider>
     );
 };
 
 // TODO
-// 1 / удалить locale отовсюду
+// 1 / удалить locale отовсюду +-
 // 2 / сделать модалку универсальной
 // 3 / модалка (опционально):
 //     ивент на клик вне зоны (чтобы закрывалось или делало еще что-то)

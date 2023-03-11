@@ -1,16 +1,9 @@
 import React, { FC, PropsWithChildren, ReactNode, useContext } from 'react';
 import { createContext } from 'react';
 
-import {
-    getMonthesNames,
-    createMonth,
-    getWeekDaysNames,
-    getMonthNumberOfDays,
-    createDate
-} from '../../../utils/helpers/date';
+import { getMonthesNames, createMonth, getWeekDaysNames, getMonthNumberOfDays, createDate } from '../../../utils/helpers/date';
 
 interface UseCalendarParams {
-    locale?: string;
     selectedDate: Date;
     firstWeekDayNumber?: number;
 }
@@ -22,44 +15,30 @@ const getYearsInterval = (year: number) => {
     return [...Array(10)].map((_, index) => startYear + index);
 };
 
-const useCalendarStore = ({ locale = 'default', selectedDate: date, firstWeekDayNumber = 2 }: UseCalendarParams) => {
+const useCalendarStore = ({ selectedDate: date, firstWeekDayNumber = 2 }: UseCalendarParams) => {
     const [selectedDay, setSelectedDay] = React.useState(createDate({ date }));
     const [selectedMonth, setSelectedMonth] = React.useState(
         createMonth({
             date: new Date(selectedDay.year, selectedDay.monthIndex),
-            locale
         })
     );
     const [selectedYear, setSelectedYear] = React.useState(selectedDay.year);
-    const [selectedYearsInterval, setSelectedYearsInterval] = React.useState(
-        getYearsInterval(selectedDay.year)
-    );
+    const [selectedYearsInterval, setSelectedYearsInterval] = React.useState(getYearsInterval(selectedDay.year));
 
-    const monthesNames = React.useMemo(() => getMonthesNames(locale), []);
-    const weekDaysNames = React.useMemo(
-        () => getWeekDaysNames(firstWeekDayNumber, locale),
-        []
-    );
+    const monthesNames = React.useMemo(() => getMonthesNames(), []);
+    const weekDaysNames = React.useMemo(() => getWeekDaysNames(firstWeekDayNumber), []);
 
-    const days = React.useMemo(
-        () => selectedMonth.createMonthDays(),
-        [selectedMonth, selectedYear]
-    );
+    const days = React.useMemo(() => selectedMonth.createMonthDays(), [selectedMonth, selectedYear]);
 
     const calendarDays = React.useMemo(() => {
-        const monthNumberOfDays = getMonthNumberOfDays(
-            selectedMonth.monthIndex,
-            selectedYear
-        );
+        const monthNumberOfDays = getMonthNumberOfDays(selectedMonth.monthIndex, selectedYear);
 
         const prevMonthDays = createMonth({
             date: new Date(selectedYear, selectedMonth.monthIndex - 1),
-            locale
         }).createMonthDays();
 
         const nextMonthDays = createMonth({
             date: new Date(selectedYear, selectedMonth.monthIndex + 1),
-            locale
         }).createMonthDays();
 
         const firstDay = days[0];
@@ -85,19 +64,11 @@ const useCalendarStore = ({ locale = 'default', selectedDate: date, firstWeekDay
             result[i] = prevMonthDays[prevMonthDays.length - inverted];
         }
 
-        for (
-            let i = numberOfPrevDays;
-            i < totalCalendarDays - numberOfNextDays;
-            i += 1
-        ) {
+        for (let i = numberOfPrevDays; i < totalCalendarDays - numberOfNextDays; i += 1) {
             result[i] = days[i - numberOfPrevDays];
         }
 
-        for (
-            let i = totalCalendarDays - numberOfNextDays;
-            i < totalCalendarDays;
-            i += 1
-        ) {
+        for (let i = totalCalendarDays - numberOfNextDays; i < totalCalendarDays; i += 1) {
             result[i] = nextMonthDays[i - totalCalendarDays + numberOfNextDays];
         }
 
@@ -105,37 +76,26 @@ const useCalendarStore = ({ locale = 'default', selectedDate: date, firstWeekDay
     }, [selectedMonth.year, selectedMonth.monthIndex, selectedYear]);
 
     const onClickArrow = (direction: 'right' | 'left') => {
-        const monthIndex =
-            direction === 'left'
-                ? selectedMonth.monthIndex - 1
-                : selectedMonth.monthIndex + 1;
+        const monthIndex = direction === 'left' ? selectedMonth.monthIndex - 1 : selectedMonth.monthIndex + 1;
         if (monthIndex === -1) {
             const year = selectedYear - 1;
             setSelectedYear(year);
-            if (!selectedYearsInterval.includes(year))
-                setSelectedYearsInterval(getYearsInterval(year));
-            return setSelectedMonth(
-                createMonth({ date: new Date(selectedYear - 1, 11), locale })
-            );
+            if (!selectedYearsInterval.includes(year)) setSelectedYearsInterval(getYearsInterval(year));
+            return setSelectedMonth(createMonth({ date: new Date(selectedYear - 1, 11) }));
         }
 
         if (monthIndex === 12) {
             const year = selectedYear + 1;
             setSelectedYear(year);
-            if (!selectedYearsInterval.includes(year))
-                setSelectedYearsInterval(getYearsInterval(year));
-            return setSelectedMonth(createMonth({ date: new Date(year, 0), locale }));
+            if (!selectedYearsInterval.includes(year)) setSelectedYearsInterval(getYearsInterval(year));
+            return setSelectedMonth(createMonth({ date: new Date(year, 0) }));
         }
 
-        setSelectedMonth(
-            createMonth({ date: new Date(selectedYear, monthIndex), locale })
-        );
+        setSelectedMonth(createMonth({ date: new Date(selectedYear, monthIndex) }));
     };
 
     const setSelectedMonthByIndex = (monthIndex: number) => {
-        setSelectedMonth(
-            createMonth({ date: new Date(selectedYear, monthIndex), locale })
-        );
+        setSelectedMonth(createMonth({ date: new Date(selectedYear, monthIndex) }));
     };
 
     return {
@@ -146,29 +106,25 @@ const useCalendarStore = ({ locale = 'default', selectedDate: date, firstWeekDay
             selectedDay,
             selectedMonth,
             selectedYear,
-            selectedYearsInterval
+            selectedYearsInterval,
         },
         functions: {
             onClickArrow,
             setSelectedDay,
             setSelectedMonthByIndex,
             setSelectedYear,
-            setSelectedYearsInterval
-        }
+            setSelectedYearsInterval,
+        },
     };
 };
 type CalendarReturn = ReturnType<typeof useCalendarStore>;
-type CalendarContextType = CalendarReturn | null
-type CalendarContextProps = PropsWithChildren<{ options: UseCalendarParams }>
+type CalendarContextType = CalendarReturn | null;
+type CalendarContextProps = PropsWithChildren<{ options: UseCalendarParams }>;
 const CalendarContext = createContext<CalendarContextType>(null);
 export const CalendarContextProvider: FC<CalendarContextProps> = ({ children, options }) => {
     const store = useCalendarStore(options);
 
-    return (
-        <CalendarContext.Provider value={store}>
-            {children}
-        </CalendarContext.Provider>
-    );
+    return <CalendarContext.Provider value={store}>{children}</CalendarContext.Provider>;
 };
 type Selector<T> = (state: T) => any;
 const defaultSelector: Selector<CalendarContextType> = (v) => v;
