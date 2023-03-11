@@ -23,9 +23,9 @@ export const App: React.FC = () => {
 // 3 / модалка (опционально):
 //     ивент на клик вне зоны (чтобы закрывалось или делало еще что-то)
 //     react.createPortal - делаем модалку через него
-// 4 / типизировать CalendarEvent date
-// 5 / переписать форму на react-hook-form
-// 6 имплементация нескольких классов через clsx
+// 4 / типизировать CalendarEvent date +++++++++++
+// 5 / переписать форму на react-hook-form +
+// 6 имплементация нескольких классов через clsx +
 // [
 //   "calendar__day",
 //   isToday ? "calendar__today__item" : "",

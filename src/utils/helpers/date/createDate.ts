@@ -1,12 +1,11 @@
 import { getWeekNumber } from './getWeekNumber';
 
 interface CreateDateParams {
-    locale?: string;
     date?: Date;
 }
 
 export const createDate = (params?: CreateDateParams) => {
-    const locale = params?.locale ?? 'default';
+    const locale = 'default';
 
     const d = params?.date ?? new Date();
     const dayNumber = d.getDate();

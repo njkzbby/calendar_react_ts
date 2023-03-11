@@ -1,3 +1,4 @@
+import cx from 'clsx';
 import React, { useState } from 'react';
 import { checkDateIsEqual, checkIsToday } from '../../utils/helpers/date';
 import { Modal } from '../Modal/Modal';
@@ -28,7 +29,7 @@ export const CalendarItem = ({
     const isSelectedDay = checkDateIsEqual(day.date, state.selectedDay.date);
     const isAdditionalDay = day.monthIndex !== state.selectedMonth.monthIndex;
     const [modalActive, setModalActive] = useState(false);
-    console.log('day is :' + day.dayNumber);
+
     return (
         <div
             aria-hidden
@@ -37,15 +38,17 @@ export const CalendarItem = ({
                 selectDate(day.date);
                 setModalActive(true);
             }}
-            className={[
-                'calendar__day',
-                isToday ? 'calendar__today__item' : '',
-                isSelectedDay ? 'calendar__selected__item' : '',
-                isAdditionalDay ? 'calendar__additional__day' : '',
-            ].join(' ')}
+            className={
+                // 'calendar__day',
+                // isToday ? 'calendar__today__item' : '',
+                // isSelectedDay ? 'calendar__selected__item' : '',
+                // isAdditionalDay ? 'calendar__additional__day' : '',
+                cx('calendar__day', { calendar__today__item: isToday, calendar__selected__item: isSelectedDay, calendar__additional__day: isAdditionalDay })
+            }
         >
             {dayIndex < 7 && day.day + `, `}
             {day.dayNumber}
+
             <Modal active={modalActive} setActive={setModalActive} date={day}></Modal>
         </div>
     );
