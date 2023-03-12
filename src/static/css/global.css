@@ -1,63 +1,67 @@
 .app__container {
-  display: flex;
-  /* justify-content: center; */
-  align-items: center;
-  flex-direction: column;
-  background-color: #ffffff;
-  height: 100vh;
-  margin-inline: auto;
+    display: flex;
+    /* justify-content: center; */
+    align-items: center;
+    flex-direction: column;
+    background-color: #ffffff;
+    height: 100vh;
+    margin-inline: auto;
 }
 
 .date__container {
-  background-color: var(--background-color-calendar);
-  font-size: 15px;
-  color: var;
-  border-radius: 15px;
-  padding: 5px 25px;
-  margin-bottom: 15px;
+    background-color: var(--background-color-calendar);
+    font-size: 15px;
+    color: var;
+    border-radius: 15px;
+    padding: 5px 25px;
+    margin-bottom: 15px;
 }
 
 :root {
-  /* colors */
-  --color-text: #434141;
-  --color-placeholder: rgba(0, 0, 0, 0.5);
-  --color-additional: #93b1ff;
-  --color-additional7: rgba(147, 177, 255, 0.7);
-  --background-color-calendar: #ededed;
-  --background-color-calendar-header: #ffffff;
+    /* colors */
+    --color-text: #434141;
+    --color-placeholder: rgba(0, 0, 0, 0.5);
+    --color-additional: #93b1ff;
+    --color-additional7: rgba(147, 177, 255, 0.7);
+    --background-color-calendar: #ededed;
+    --background-color-calendar-header: #ffffff;
 
-  /* images */
-  --images-arrow: url("../images/arrow.svg");
-  /* spacing */
-  /* text */
+    /* images */
+    --images-arrow: url('../images/arrow.svg');
+    /* spacing */
+    /* text */
 }
 
 :root {
-  /* colors */
-  --color-text: #434141;
-  --color-placeholder: rgba(0, 0, 0, 0.5);
-  --color-additional: rgb(100, 188, 255);
-  --color-additional7: rgba(100, 188, 255, 0.7);
-  --background-color-calendar: #ededed;
-  --background-color-calendar-header: rgb(136, 202, 252);
+    /* colors */
+    --color-text: #434141;
+    --color-placeholder: rgba(0, 0, 0, 0.5);
+    --color-additional: rgb(100, 188, 255);
+    --color-additional7: rgba(100, 188, 255, 0.7);
+    --background-color-calendar: #ededed;
+    --background-color-calendar-header: rgb(136, 202, 252);
 
-  /* images */
-  --images-arrow: url("../images/arrow_white.svg");
-  /* spacing */
-  /* text */
+    /* images */
+    --images-arrow: url('../images/arrow_white.svg');
+    /* spacing */
+    /* text */
 }
 
 :root {
-  /* colors */
-  --color-text: #6b6b6b;
-  --color-placeholder: #6b6b6b;
-  --color-additional: #93b1ff;
-  --color-additional7: rgba(147, 177, 255, 0.7);
-  --background-color-calendar: #ffffff;
-  --background-color-calendar-header: #575c63;
+    /* colors */
+    --color-text: #6b6b6b;
+    --color-placeholder: #6b6b6b;
+    --color-additional: #93b1ff;
+    --color-additional7: rgba(147, 177, 255, 0.7);
+    --background-color-calendar: #ffffff;
+    --background-color-calendar-header: #575c63;
 
-  /* images */
-  --images-arrow: url("../images/arrow.svg");
-  /* spacing */
-  /* text */
+    /* images */
+    --images-arrow: url('../images/arrow.svg');
+    /* spacing */
+    /* text */
+}
+
+ul {
+    list-style-type: none;
 }

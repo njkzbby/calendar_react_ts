@@ -12,12 +12,12 @@ export interface Day {
 }
 
 export const CalendarItem = ({
-                                 day,
-                                 dayIndex,
-                                 selectDate,
-                                 active,
-                                 setActive
-                             }: {
+    day,
+    dayIndex,
+    selectDate,
+    active,
+    setActive,
+}: {
     day: Day;
     dayIndex: any;
     selectDate: any;
@@ -32,6 +32,7 @@ export const CalendarItem = ({
     const [modalActive, setModalActive] = useState(false);
 
     const event = getEventByDay(new Date(day.date).getTime()) || {};
+
     return (
         <div
             aria-hidden
@@ -48,7 +49,7 @@ export const CalendarItem = ({
                 cx('calendar__day', {
                     calendar__today__item: isToday,
                     calendar__selected__item: isSelectedDay,
-                    calendar__additional__day: isAdditionalDay
+                    calendar__additional__day: isAdditionalDay,
                 })
             }
         >
