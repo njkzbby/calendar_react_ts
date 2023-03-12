@@ -99,15 +99,15 @@ const useCalendarStore = ({ selectedDate: date, firstWeekDayNumber = 2 }: UseCal
         setSelectedMonth(createMonth({ date: new Date(selectedYear, monthIndex) }));
     };
 
-    const getEventByDay = useCallback((day: number): SubmitDate | undefined => {
+    const getEventByDay = (day: number): SubmitDate | undefined => {
         const events = JSON.parse(localStorage.getItem('events') || '[]')
         return events.find((event: SubmitDate) => event.date === day)
-    }, [localStorage])
+    }
 
-    const getEventByNameOrParticipants = useCallback((text: string ): SubmitDate | undefined => {
+    const getEventByNameOrParticipants = (text: string ): SubmitDate | undefined => {
         const events = JSON.parse(localStorage.getItem('events') || '[]')
         return events.find((event: SubmitDate) => event.name.includes(text) || event.participants.includes(text))
-    }, [localStorage])
+    }
 
     return {
         state: {
