@@ -7,18 +7,7 @@ import { CalendarItem, Day } from './CalendarItem';
 export const Calendar: React.FC<{ selectDate: any; selectedDate: any }> = ({ selectDate, selectedDate }) => {
     const { functions, state } = useCalendar();
 
-    const retrivedEventsAsArr = JSON.parse(localStorage.getItem('events') || '[]');
-    const retrivedEvents = retrivedEventsAsArr.reduce((obj: any, event: any, index: any) => {
-        obj[index] = event;
-        return obj;
-    }, {});
-    console.log(retrivedEvents);
-    for (let arr in retrivedEvents) {
-        if (retrivedEvents[arr].date) {
-        }
-        console.log(retrivedEvents[arr].date);
-        console.log();
-    }
+
 
     return (
         <>

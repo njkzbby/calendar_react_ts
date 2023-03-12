@@ -8,7 +8,7 @@ import { CalendarContextProvider } from './components/Calendar/hooks/useCalendar
 export const App: React.FC = () => {
     const [selectedDate, setSelectedDay] = React.useState(new Date());
 
-    return (
+     return (
         <CalendarContextProvider options={{ selectedDate, firstWeekDayNumber: 2 }}>
             <div className="app__container">
                 <Calendar selectedDate={selectedDate} selectDate={(date: Date) => setSelectedDay(date)} />

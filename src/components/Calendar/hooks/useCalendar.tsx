@@ -1,7 +1,8 @@
-import React, { FC, PropsWithChildren, ReactNode, useContext } from 'react';
+import React, { FC, PropsWithChildren, ReactNode, useCallback, useContext } from 'react';
 import { createContext } from 'react';
 
 import { getMonthesNames, createMonth, getWeekDaysNames, getMonthNumberOfDays, createDate } from '../../../utils/helpers/date';
+import { SubmitDate } from '../../Modal/Modal';
 
 interface UseCalendarParams {
     selectedDate: Date;
@@ -98,6 +99,16 @@ const useCalendarStore = ({ selectedDate: date, firstWeekDayNumber = 2 }: UseCal
         setSelectedMonth(createMonth({ date: new Date(selectedYear, monthIndex) }));
     };
 
+    const getEventByDay = useCallback((day: number): SubmitDate | undefined => {
+        const events = JSON.parse(localStorage.getItem('events') || '[]')
+        return events.find((event: SubmitDate) => event.date === day)
+    }, [localStorage])
+
+    const getEventByNameOrParticipants = useCallback((text: string ): SubmitDate | undefined => {
+        const events = JSON.parse(localStorage.getItem('events') || '[]')
+        return events.find((event: SubmitDate) => event.name.includes(text) || event.participants.includes(text))
+    }, [localStorage])
+
     return {
         state: {
             calendarDays,
@@ -109,6 +120,8 @@ const useCalendarStore = ({ selectedDate: date, firstWeekDayNumber = 2 }: UseCal
             selectedYearsInterval,
         },
         functions: {
+            getEventByNameOrParticipants,
+            getEventByDay,
             onClickArrow,
             setSelectedDay,
             setSelectedMonthByIndex,

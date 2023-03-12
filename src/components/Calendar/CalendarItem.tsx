@@ -12,12 +12,12 @@ export interface Day {
 }
 
 export const CalendarItem = ({
-    day,
-    dayIndex,
-    selectDate,
-    active,
-    setActive,
-}: {
+                                 day,
+                                 dayIndex,
+                                 selectDate,
+                                 active,
+                                 setActive
+                             }: {
     day: Day;
     dayIndex: any;
     selectDate: any;
@@ -25,16 +25,18 @@ export const CalendarItem = ({
     setActive: any;
 }) => {
     const { state, functions } = useCalendar();
+    const { getEventByDay, setSelectedDay } = functions;
     const isToday = checkIsToday(day.date);
     const isSelectedDay = checkDateIsEqual(day.date, state.selectedDay.date);
     const isAdditionalDay = day.monthIndex !== state.selectedMonth.monthIndex;
     const [modalActive, setModalActive] = useState(false);
 
+    const event = getEventByDay(new Date(day.date).getTime()) || {};
     return (
         <div
             aria-hidden
             onClick={() => {
-                functions.setSelectedDay(day);
+                setSelectedDay(day);
                 selectDate(day.date);
                 setModalActive(true);
             }}
@@ -43,14 +45,21 @@ export const CalendarItem = ({
                 // isToday ? 'calendar__today__item' : '',
                 // isSelectedDay ? 'calendar__selected__item' : '',
                 // isAdditionalDay ? 'calendar__additional__day' : '',
-                cx('calendar__day', { calendar__today__item: isToday, calendar__selected__item: isSelectedDay, calendar__additional__day: isAdditionalDay })
+                cx('calendar__day', {
+                    calendar__today__item: isToday,
+                    calendar__selected__item: isSelectedDay,
+                    calendar__additional__day: isAdditionalDay
+                })
             }
         >
             {dayIndex < 7 && day.day + `, `}
             {day.dayNumber}
             {/* {(day.date = retrivedEvents[0].date ? retrivedEvents[0].descripthion : retrivedEvents[0].name)} */}
-            {}
-
+            <div>
+                <h2>{event.name}</h2>
+                <h4>{event.description}</h4>
+                <h4>{event.participants}</h4>
+            </div>
             <Modal active={modalActive} setActive={setModalActive} date={day}></Modal>
         </div>
     );
