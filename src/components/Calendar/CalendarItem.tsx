@@ -48,6 +48,8 @@ export const CalendarItem = ({
         >
             {dayIndex < 7 && day.day + `, `}
             {day.dayNumber}
+            {/* {(day.date = retrivedEvents[0].date ? retrivedEvents[0].descripthion : retrivedEvents[0].name)} */}
+            {}
 
             <Modal active={modalActive} setActive={setModalActive} date={day}></Modal>
         </div>
